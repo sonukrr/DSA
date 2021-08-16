@@ -38,3 +38,28 @@ hash('yellow', 10);
  * 3. Could be a little more random (clustering happens easily)
  */
 
+/**
+ * 1. Using a prime number reduces the collisons drastically 
+ */
+
+function improvedHash(key, arrayLen) {
+    let WEIRD_PTIME = 31;   //to decrease the number of collison
+    var total = 0;
+
+    for (let i = 0; i < Math.min(key.length, 100); i++) { //to improve performance for large strings
+        let char = key[i];
+        var value = char.charCodeAt(0) - 96;
+        total = (total * WEIRD_PTIME + value) % arrayLen;
+        
+    }
+
+    return total;
+    
+}
+
+/**
+ * Even with large arrays and great hash function, the collisions are inevitable
+ * There are many strategies available for dealing with collisons. But we'll focus on two :-
+ *      1. Separate Chaining -> Store the collisons at same indices with help of nested data structures(like array inside array) 
+ *      2. Linear Probing    -> We finding next available empty slot and assign that index. We'll run out of memory once all index are non empty
+ */
