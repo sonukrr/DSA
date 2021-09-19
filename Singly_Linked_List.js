@@ -200,20 +200,44 @@ class SinglyLinkedList {
       return foundIdx;
 
     }
+
+    rotate(idx){
+      if(idx >= this.length) return undefined;
+      if(this.length == 1) return this;
+      if(idx < 0) idx = this.length + idx;
+      var left, right, curr;
+      var counter = 0;
+      curr = this.head;
+      while(idx != counter){
+        left = curr;
+        right = curr.next;
+        curr = curr.next;
+        counter++;
+      }
+
+      this.tail.next = this.head;
+      this.head = right;
+      left.next = null;
+      this.tail = left;
+      return this;
+    }
 }
 
 var singlyLinkedList = new SinglyLinkedList();
-singlyLinkedList.push(10);
-singlyLinkedList.push(20);
-singlyLinkedList.push(30);
-singlyLinkedList.push(40);
-singlyLinkedList.push(30);
-singlyLinkedList.push(40);
-singlyLinkedList.push(50);
-singlyLinkedList.push(30);
-singlyLinkedList.push(40);
-singlyLinkedList.push(50);
+// singlyLinkedList.push(10);
+// singlyLinkedList.push(20);
+// singlyLinkedList.push(30);
+// singlyLinkedList.push(40);
+// singlyLinkedList.push(30);
+// singlyLinkedList.push(40);
+// singlyLinkedList.push(50);
+// singlyLinkedList.push(30);
+// singlyLinkedList.push(40);
+// singlyLinkedList.push(50);
 
 // singlyLinkedList.pop();
 // singlyLinkedList.pop();
 // singlyLinkedList.pop();
+console.log(singlyLinkedList.print());
+
+// console.log(singlyLinkedList.rotate(2));
