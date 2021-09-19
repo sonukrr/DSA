@@ -31,22 +31,24 @@ function minSubArrayLen(nums, sum) {
 console.log(minSubArrayLen([2, 3, 1, 2, 4, 3], 7));
 
 function findLongestSubstring(str) {
-  let longest = 0;
-  let seen = {};
-  let start = 0;
+  let a_pointer = 0;
+  let b_pointer = 0;
+  let max = 0;
 
-  for (let i = 0; i < str.length; i++) {
-    let char = str[i];
-    if (seen[char]) {
-      start = Math.max(start, seen[char]);
+  var set = new Set();
+  while (b_pointer < str.length) {
+    let char = str[b_pointer];
+
+    if (!set.has(char)) {
+      set.add(char);
+      max = Math.max(max, set.size);
+      ++b_pointer;
+    } else {
+      set.delete(str[a_pointer]);
+      ++a_pointer;
     }
-    // index - beginning of substring + 1 (to include current in count)
-    longest = Math.max(longest, i - start + 1);
-    // store the index of the next char so as to not double count
-    seen[char] = i + 1;
   }
-  
-  return longest;
+  return max;
 }
 
 console.log(findLongestSubstring("thisisawesome"));
