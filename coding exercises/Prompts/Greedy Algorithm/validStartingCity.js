@@ -28,22 +28,25 @@ function validStartingCity(distances, fuel, mpg) {
 
 // TC - O(n), SC - O(1)
 function validStartingCity(distances, fuel, mpg) {
-    var gallons = fuel;
-    for (let i = 0; i < gallons.length; i++) {
-        gallons[i] = gallons[i] * mpg;
-    }
+   const numberOfCities = distances.length;
+   let milesRemaining = 0;
 
-    var currentFuel = 0;
-    var minCity = 0;
-    var minGas = 0;
-    for (let i = 0; i < gallons.length; i++) {
-        currentFuel = currentFuel + gallons[i] - distances[i];
-        if(currentFuel < minGas){
-            minGas = currentFuel;
-            minCity = i;
-        }
-    }
-    return minCity;
+   let startingCityIdx = 0;
+   let milesRemainingAtStartingCity = 0;
+
+   for (let cityIdx = 1; cityIdx < numberOfCities; cityIdx++) {
+       const distanceFromPrevCity = distances[cityIdx-1];
+       const fuelFromPrevCity = fuel[cityIdx-1];
+
+       milesRemaining += fuelFromPrevCity * mpg - distanceFromPrevCity;
+
+       if(milesRemaining < milesRemainingAtStartingCity){
+           milesRemainingAtStartingCity = milesRemaining;
+           startingCityIdx = cityIdx;
+       }
+       
+   }
+   return startingCityIdx;
 }
 
 var obj = {
