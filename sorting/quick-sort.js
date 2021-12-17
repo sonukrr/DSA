@@ -13,10 +13,7 @@ function quickSort(arr, left = 0, right = arr.length-1) {
     return arr;
 }
 
-/**
- * 
- *
- */
+
 function pivotHelper(arr, startIdx = 0, endIdx = arr.length-1) {
   let swapIdx = startIdx;
   let pivotIdx = startIdx+1;
